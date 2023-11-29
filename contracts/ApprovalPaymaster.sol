@@ -46,7 +46,7 @@ contract ApprovalPaymaster is IPaymaster {
       // 檢驗是否支援使用此 Token 支付，合約可實作支援多種
       require(token == allowedToken, "Invalid token");
 
-      // 計算要多少 ETH 當作 Gas 費，多給的不會退回
+      // 計算要多少 ETH 當作 Gas 費
       uint requiredETH = _transaction.gasLimit * _transaction.maxFeePerGas;
 
       // 計算換成成 Token 要收取多少

@@ -28,7 +28,7 @@ contract GeneralPaymaster is IPaymaster {
 
     bytes4 paymasterInputSelector = bytes4(_transaction.paymasterInput[0:4]);
     if (paymasterInputSelector == IPaymasterFlow.general.selector) {
-      // 計算要多少 ETH 當作 Gas 費，多給的不會退回
+      // 計算要多少 ETH 當作 Gas 費
       uint256 requiredETH = _transaction.gasLimit * _transaction.maxFeePerGas;
 
       // 支付 Gas 手續費

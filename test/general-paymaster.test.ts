@@ -36,7 +36,7 @@ describe('GeneralPaymaster', () => {
       innerInput: '0x'
     });
 
-    // 預估 Gas，實測設定多少就會花掉多少，不會退回
+    // 預估 Gas
     const gasLimit = await hello.connect(owner).estimateGas.hi(
       {
         customData: {
