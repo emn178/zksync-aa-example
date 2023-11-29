@@ -16,12 +16,8 @@ contract MyAccount is IAccount {
   address public owner;
 
   // 某些方法限制只有 bootloader 能呼叫
-  modifier ignoreNonBootloader() {
-    if (msg.sender != BOOTLOADER_FORMAL_ADDRESS) {
-      assembly {
-        return(0, 0)
-      }
-    }
+  modifier onlyBootloader() {
+    require(msg.sender == BOOTLOADER_FORMAL_ADDRESS, "Only bootloader can call this method");
     _;
   }
 
@@ -33,7 +29,7 @@ contract MyAccount is IAccount {
     bytes32,
     bytes32 _suggestedSignedHash, // 使用此參數
     Transaction calldata _transaction
-  ) external payable override ignoreNonBootloader returns (bytes4 magic) {
+  ) external payable override onlyBootloader returns (bytes4 magic) {
     magic = _validateTransaction(_suggestedSignedHash, _transaction);
   }
 
@@ -63,7 +59,7 @@ contract MyAccount is IAccount {
     bytes32,
     bytes32,
     Transaction calldata _transaction
-  ) external payable override ignoreNonBootloader {
+  ) external payable override onlyBootloader {
     _executeTransaction(_transaction);
   }
 
@@ -108,7 +104,7 @@ contract MyAccount is IAccount {
     bytes32,
     bytes32,
     Transaction calldata _transaction
-  ) external payable override ignoreNonBootloader {
+  ) external payable override onlyBootloader {
     bool success = _transaction.payToTheBootloader();
     require(success, "Failed to pay the fee to the operator");
   }
@@ -117,7 +113,7 @@ contract MyAccount is IAccount {
     bytes32,
     bytes32,
     Transaction calldata _transaction
-  ) external payable override ignoreNonBootloader {
+  ) external payable override onlyBootloader {
     _transaction.processPaymasterInput();
   }
 

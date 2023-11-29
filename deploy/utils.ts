@@ -108,15 +108,15 @@ export const deployContract = async (contractArtifactName: string, constructorAr
   log(` - Contract source: ${fullContractSource}`);
   log(` - Encoded constructor arguments: ${constructorArgs}\n`);
 
-  if (!options?.noVerify && hre.network.config.verifyURL) {
-    log(`Requesting contract verification...`);
-    await verifyContract({
-      address: contract.address,
-      contract: fullContractSource,
-      constructorArguments: constructorArgs,
-      bytecode: artifact.bytecode,
-    });
-  }
+  // if (!options?.noVerify && hre.network.config.verifyURL) {
+  //   log(`Requesting contract verification...`);
+  //   await verifyContract({
+  //     address: contract.address,
+  //     contract: fullContractSource,
+  //     constructorArguments: constructorArgs,
+  //     bytecode: artifact.bytecode,
+  //   });
+  // }
 
   return contract;
 }
