@@ -1,18 +1,18 @@
 import { expect } from 'chai';
 import { LOCAL_RICH_WALLETS, getWallet } from '../deploy/utils';
-import { utils, Wallet } from "zksync-web3";
-import * as ethers from "ethers";
-import * as hre from "hardhat";
-import { Deployer } from "@matterlabs/hardhat-zksync-deploy";
+import { utils, Wallet } from 'zksync-web3';
+import * as ethers from 'ethers';
+import * as hre from 'hardhat';
+import { Deployer } from '@matterlabs/hardhat-zksync-deploy';
 
 describe('ApprovalPaymaster', () => {
   it('Should be the same with caller', async function () {
     const wallet = getWallet(LOCAL_RICH_WALLETS[0].privateKey);
     const deployer = new Deployer(hre, wallet);
     const provider = wallet.provider;
-    const tokenArtifact = await deployer.loadArtifact("MyToken");
-    const helloArtifact = await deployer.loadArtifact("Hello");
-    const paymasterArtifact = await deployer.loadArtifact("ApprovalPaymaster");
+    const tokenArtifact = await deployer.loadArtifact('MyToken');
+    const helloArtifact = await deployer.loadArtifact('Hello');
+    const paymasterArtifact = await deployer.loadArtifact('ApprovalPaymaster');
 
     // 建立 Token
     const token = await deployer.deploy(tokenArtifact);
@@ -39,7 +39,7 @@ describe('ApprovalPaymaster', () => {
 
     // 產生 Paymaster 參數
     const baseParams: any = {
-      type: "ApprovalBased",
+      type: 'ApprovalBased',
       token: token.address,
       innerInput: '0x'
     };
